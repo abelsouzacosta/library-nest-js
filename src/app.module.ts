@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configValidationSchema } from './config.schema';
+import { AuthorsModule } from './authors/authors.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { configValidationSchema } from './config.schema';
         uri: configService.get('MONGO_URL'),
       }),
     }),
+    AuthorsModule,
   ],
 })
 export class AppModule {}
