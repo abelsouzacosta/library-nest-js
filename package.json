@@ -28,6 +28,7 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/mongoose": "^9.2.0",
     "@nestjs/platform-express": "^8.0.0",
+    "class-validator": "^0.13.2",
     "joi": "^17.6.0",
     "mongoose": "^6.5.1",
     "reflect-metadata": "^0.1.13",
