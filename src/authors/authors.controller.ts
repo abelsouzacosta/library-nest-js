@@ -8,16 +8,16 @@ import {
   Delete,
 } from '@nestjs/common';
 import { AuthorsService } from './authors.service';
-import { CreateAuthorDto } from './dto/create-author.dto';
-import { UpdateAuthorDto } from './dto/update-author.dto';
+import { CreateAuthorDto } from './application/dto/create-author.dto';
+import { UpdateAuthorDto } from './application/dto/update-author.dto';
 
 @Controller('authors')
 export class AuthorsController {
   constructor(private readonly authorsService: AuthorsService) {}
 
   @Post()
-  create(@Body() createAuthorDto: CreateAuthorDto) {
-    return this.authorsService.create(createAuthorDto);
+  create(@Body() data: CreateAuthorDto) {
+    return this.authorsService.create(data);
   }
 
   @Get()
@@ -27,16 +27,16 @@ export class AuthorsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.authorsService.findOne(+id);
+    return this.authorsService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAuthorDto: UpdateAuthorDto) {
-    return this.authorsService.update(+id, updateAuthorDto);
+  update(@Param('id') id: string, @Body() data: UpdateAuthorDto) {
+    return this.authorsService.update(id, data);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.authorsService.remove(+id);
+    return this.authorsService.remove(id);
   }
 }
