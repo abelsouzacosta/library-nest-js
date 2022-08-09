@@ -1,1 +1,23 @@
-export class Book {}
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose from 'mongoose';
+import { Author } from '../../authors/entities/author.entity';
+
+@Schema({
+  timestamps: true,
+  collection: 'books',
+})
+export class Book {
+  @Prop({ required: true })
+  title: string;
+
+  @Prop({ required: true })
+  description: string;
+
+  @Prop({ required: true })
+  total_pages: string;
+
+  @Prop({ required: true, type: mongoose.Types.ObjectId, ref: 'Author' })
+  authors: Author[];
+}
+
+export const BookSchema = SchemaFactory.createForClass(Book);
