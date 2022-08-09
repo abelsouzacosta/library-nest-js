@@ -16,8 +16,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const response = context.getResponse<Response>();
     const status = exception.getStatus();
     const message = exception.getResponse();
+    const parsedMessage =
+      typeof message === 'string' ? message : JSON.stringify(message);
 
-    Logger.error(`${status} - ${message} on path ${request.path}`);
+    Logger.error(`${status} - ${parsedMessage} on path ${request.path}`);
 
     response.status(status).json({
       statusCode: status,
