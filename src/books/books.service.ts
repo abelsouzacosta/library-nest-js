@@ -15,8 +15,8 @@ export class BooksService {
     return this.repository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} book`;
+  findOne(id: string) {
+    return this.repository.findById(id);
   }
 
   update(id: number, data: UpdateBookDto) {
