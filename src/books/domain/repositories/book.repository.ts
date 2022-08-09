@@ -9,7 +9,10 @@ import { IBookRepository } from 'src/books/infra/interfaces/book-repository.inte
 
 @Injectable()
 export class BooksRepository implements IBookRepository {
-  constructor(private readonly model: Model<Book>) {}
+  constructor(
+    @InjectModel(Book.name)
+    private readonly model: Model<Book>,
+  ) {}
 
   async find(): Promise<Book[]> {
     return this.model.find();
