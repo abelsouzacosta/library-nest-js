@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { UpdateResult } from 'mongodb';
 import { Model } from 'mongoose';
 import { CreateBookDto } from 'src/books/application/dto/create-book.dto';
@@ -7,7 +8,7 @@ import { Book } from 'src/books/entities/book.entity';
 import { IBookRepository } from 'src/books/infra/interfaces/book-repository.interface';
 
 @Injectable()
-export class BookRepository implements IBookRepository {
+export class BooksRepository implements IBookRepository {
   constructor(private readonly model: Model<Book>) {}
 
   async find(): Promise<Book[]> {
