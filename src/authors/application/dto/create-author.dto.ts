@@ -1,4 +1,10 @@
-import { IsDate, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsDate,
+  IsISO8601,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CreateAuthorDto {
   @IsString({
@@ -17,7 +23,7 @@ export class CreateAuthorDto {
   })
   biography: string;
 
-  @IsDate({
+  @IsISO8601({
     message: 'date_of_birth should be a date',
   })
   @IsNotEmpty({
@@ -29,5 +35,5 @@ export class CreateAuthorDto {
     message: 'date_of_death should be a date',
   })
   @IsOptional()
-  date_of_death?: string;
+  date_of_death?: Date;
 }
