@@ -19,11 +19,11 @@ export class BooksService {
     return this.repository.findById(id);
   }
 
-  update(id: number, data: UpdateBookDto) {
-    return `This action updates a #${id} book`;
+  update(id: string, data: UpdateBookDto) {
+    return this.repository.update(id, data);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} book`;
+  remove(id: string) {
+    return this.repository.delete(id);
   }
 }

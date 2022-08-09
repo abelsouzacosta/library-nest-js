@@ -37,7 +37,7 @@ export class BooksRepository implements IBookRepository {
       {
         _id: id,
       },
-      { data },
+      { ...data },
     );
   }
 
