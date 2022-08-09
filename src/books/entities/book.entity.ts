@@ -19,7 +19,7 @@ export class Book {
   @Prop({ required: true })
   isbn: string;
 
-  @Prop({ required: true, type: mongoose.Types.ObjectId, ref: 'Author' })
+  @Prop({ required: true, type: [mongoose.Types.ObjectId], ref: 'Author' })
   authors: Author[];
 }
 

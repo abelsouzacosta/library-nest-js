@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './application/dto/create-book.dto';
@@ -16,8 +18,9 @@ export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
   @Post()
-  create(@Body() createBookDto: CreateBookDto) {
-    return this.booksService.create(createBookDto);
+  @UsePipes(ValidationPipe)
+  create(@Body() data: CreateBookDto) {
+    return this.booksService.create(data);
   }
 
   @Get()

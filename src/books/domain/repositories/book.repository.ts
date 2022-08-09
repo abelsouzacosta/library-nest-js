@@ -15,7 +15,7 @@ export class BooksRepository implements IBookRepository {
   ) {}
 
   async find(): Promise<Book[]> {
-    return this.model.find();
+    return this.model.find().populate('authors');
   }
 
   async findById(id: string): Promise<Book> {
