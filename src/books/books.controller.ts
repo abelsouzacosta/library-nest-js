@@ -10,10 +10,12 @@ import {
   HttpCode,
   HttpStatus,
   Put,
+  Patch,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './application/dto/create-book.dto';
 import { UpdateBookDto } from './application/dto/update-book.dto';
+import { AddAuthorsDto } from './application/dto/add-authors.dto';
 
 @Controller('books')
 export class BooksController {
@@ -43,6 +45,13 @@ export class BooksController {
   @HttpCode(HttpStatus.CREATED)
   update(@Param('id') id: string, @Body() data: UpdateBookDto) {
     return this.booksService.update(id, data);
+  }
+
+  @Patch('/add_authors_to_book/:id')
+  @UsePipes(ValidationPipe)
+  @HttpCode(HttpStatus.CREATED)
+  addAuthors(@Param('id') id: string, @Body() data: AddAuthorsDto) {
+    return this.booksService.addAuthors(id, data);
   }
 
   @Delete(':id')
