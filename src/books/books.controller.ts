@@ -8,6 +8,8 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './application/dto/create-book.dto';
@@ -19,26 +21,32 @@ export class BooksController {
 
   @Post()
   @UsePipes(ValidationPipe)
+  @HttpCode(HttpStatus.CREATED)
   create(@Body() data: CreateBookDto) {
     return this.booksService.create(data);
   }
 
   @Get()
+  @HttpCode(HttpStatus.OK)
   findAll() {
     return this.booksService.findAll();
   }
 
   @Get(':id')
+  @HttpCode(HttpStatus.OK)
   findOne(@Param('id') id: string) {
     return this.booksService.findOne(id);
   }
 
   @Patch(':id')
+  @UsePipes(ValidationPipe)
+  @HttpCode(HttpStatus.CREATED)
   update(@Param('id') id: string, @Body() data: UpdateBookDto) {
     return this.booksService.update(id, data);
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: string) {
     return this.booksService.remove(id);
   }
