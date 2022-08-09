@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { UpdateResult } from 'mongodb';
 import { Model } from 'mongoose';
+import { AddAuthorsDto } from 'src/books/application/dto/add-authors.dto';
 import { CreateBookDto } from 'src/books/application/dto/create-book.dto';
 import { UpdateBookDto } from 'src/books/application/dto/update-book.dto';
 import { Book } from 'src/books/entities/book.entity';
@@ -43,5 +44,14 @@ export class BooksRepository implements IBookRepository {
 
   async delete(id: string): Promise<void> {
     await this.model.deleteOne({ _id: id });
+  }
+
+  async addAuthors(id: string, data: AddAuthorsDto): Promise<UpdateResult> {
+    return this.model.updateOne(
+      { _id: id },
+      {
+        $push: { authors: data.authors },
+      },
+    );
   }
 }
