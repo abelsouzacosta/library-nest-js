@@ -16,13 +16,14 @@ import { BooksService } from './books.service';
 import { CreateBookDto } from './application/dto/create-book.dto';
 import { UpdateBookDto } from './application/dto/update-book.dto';
 import { AddAuthorsDto } from './application/dto/add-authors.dto';
+import { ValidateIsbnPipe } from './domain/pipes/validate-isbn.pipe';
 
 @Controller('books')
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
   @Post()
-  @UsePipes(ValidationPipe)
+  @UsePipes(ValidationPipe, ValidateIsbnPipe)
   @HttpCode(HttpStatus.CREATED)
   create(@Body() data: CreateBookDto) {
     return this.booksService.create(data);
