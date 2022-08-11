@@ -1,9 +1,15 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CategoriesController } from './categories.controller';
 import { CategoryRepository } from './domain/repositories/category.repository';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Category, CategorySchema } from './entities/category.entity';
+import { CategoryAlreadyExistsMiddleware } from './infra/middlewares/category-already-exists.middleware';
 
 @Module({
   imports: [
@@ -14,4 +20,13 @@ import { Category, CategorySchema } from './entities/category.entity';
   controllers: [CategoriesController],
   providers: [CategoriesService, CategoryRepository],
 })
-export class CategoriesModule {}
+export class CategoriesModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(CategoryAlreadyExistsMiddleware)
+      .forRoutes(
+        { path: '/categories', method: RequestMethod.POST },
+        { path: 'categories/:id', method: RequestMethod.PUT },
+      );
+  }
+}
