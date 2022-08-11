@@ -19,7 +19,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const parsedMessage =
       typeof message === 'string' ? message : JSON.stringify(message);
 
-    Logger.error(`${status} - ${parsedMessage} on path ${request.path}`);
+    Logger.error(
+      `${status} - ${parsedMessage} on path ${request.method}${request.path}`,
+    );
 
     response.status(status).json({
       statusCode: status,
