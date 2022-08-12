@@ -1,8 +1,8 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { UpdateResult } from 'mongodb';
 import { Model } from 'mongoose';
-import { CreateCategoryDto } from 'src/categories/dto/create-category.dto';
-import { UpdateCategoryDto } from 'src/categories/dto/update-category.dto';
+import { CreateCategoryDto } from 'src/categories/application/dto/create-category.dto';
+import { UpdateCategoryDto } from 'src/categories/application/dto/update-category.dto';
 import { Category } from 'src/categories/entities/category.entity';
 import { ICategoryRepository } from 'src/categories/infra/interfaces/category-repository.interface';
 
