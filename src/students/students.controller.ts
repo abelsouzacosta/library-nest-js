@@ -9,6 +9,7 @@ import {
   ValidationPipe,
   HttpCode,
   HttpStatus,
+  Put,
 } from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { CreateStudentDto } from './application/dto/create-student.dto';
