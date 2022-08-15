@@ -23,22 +23,26 @@ export class StudentsController {
   @Post()
   @UsePipes(ValidationPipe, ParseStringDatePipe, GetStudentAgePipe)
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() createStudentDto: CreateStudentDto) {
-    return this.studentsService.create(createStudentDto);
+  create(@Body() data: CreateStudentDto) {
+    return this.studentsService.create(data);
   }
 
   @Get()
+  @HttpCode(HttpStatus.OK)
   findAll() {
     return this.studentsService.findAll();
   }
 
   @Get(':id')
+  @HttpCode(HttpStatus.OK)
   findOne(@Param('id') id: string) {
     return this.studentsService.findOne(id);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateStudentDto: UpdateStudentDto) {
-    return this.studentsService.update(id, updateStudentDto);
+  @UsePipes(ValidationPipe, ParseStringDatePipe, GetStudentAgePipe)
+  @HttpCode(HttpStatus.CREATED)
+  update(@Param('id') id: string, @Body() data: UpdateStudentDto) {
+    return this.studentsService.update(id, data);
   }
 }
