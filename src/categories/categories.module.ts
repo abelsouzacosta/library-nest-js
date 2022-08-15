@@ -26,7 +26,7 @@ export class CategoriesModule implements NestModule {
     consumer
       .apply(CategoryAlreadyExistsMiddleware)
       .forRoutes(
-        { path: '/categories', method: RequestMethod.POST },
+        { path: 'categories', method: RequestMethod.POST },
         { path: 'categories/:id', method: RequestMethod.PUT },
       );
 
