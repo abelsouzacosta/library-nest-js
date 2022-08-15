@@ -14,5 +14,5 @@ export interface IStudentRepository {
 
   create(data: CreateStudentDto): Promise<Student>;
 
-  update(data: UpdateStudentDto): Promise<UpdateWriteOpResult>;
+  update(id: string, data: UpdateStudentDto): Promise<UpdateWriteOpResult>;
 }
