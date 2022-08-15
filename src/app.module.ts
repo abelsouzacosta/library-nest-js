@@ -5,6 +5,7 @@ import { configValidationSchema } from './config.schema';
 import { AuthorsModule } from './authors/authors.module';
 import { BooksModule } from './books/books.module';
 import { CategoriesModule } from './categories/categories.module';
+import { StudentsModule } from './students/students.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { CategoriesModule } from './categories/categories.module';
     AuthorsModule,
     BooksModule,
     CategoriesModule,
+    StudentsModule,
   ],
 })
 export class AppModule {}
