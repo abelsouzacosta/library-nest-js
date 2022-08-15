@@ -1,6 +1,6 @@
 import { UpdateWriteOpResult } from 'mongoose';
-import { CreateStudentDto } from 'src/students/dto/create-student.dto';
-import { UpdateStudentDto } from 'src/students/dto/update-student.dto';
+import { CreateStudentDto } from 'src/students/application/dto/create-student.dto';
+import { UpdateStudentDto } from 'src/students/application/dto/update-student.dto';
 import { Student } from 'src/students/entities/student.entity';
 
 export interface IStudentRepository {
