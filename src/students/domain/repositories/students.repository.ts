@@ -24,14 +24,26 @@ export class StudentsRepository implements IStudentRepository {
     return this.model.findById(id);
   }
 
-  async findByEmail(email: string): Promise<Student> {
-    return this.model.findOne({ email });
+  async findByEmail(email: string): Promise<boolean> {
+    const student = this.model.findOne({ email });
+
+    return student !== undefined ? true : false;
   }
 
-  async findByRegisterNumber(register_number: number): Promise<Student> {
-    return this.model.findOne({
+  async findByRegisterNumber(register_number: number): Promise<boolean> {
+    const student = this.model.findOne({
       register_number,
     });
+
+    return student !== undefined ? true : false;
+  }
+
+  async findBySsn(ssn: string): Promise<boolean> {
+    const student = this.model.findOne({
+      ssn,
+    });
+
+    return student !== undefined ? true : false;
   }
 
   async update(id: string, data: UpdateStudentDto): Promise<UpdateResult> {

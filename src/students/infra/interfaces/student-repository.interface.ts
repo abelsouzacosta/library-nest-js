@@ -8,9 +8,11 @@ export interface IStudentRepository {
 
   findById(id: string): Promise<Student>;
 
-  findByEmail(email: string): Promise<Student>;
+  findByEmail(email: string): Promise<boolean>;
 
-  findByRegisterNumber(register_number: number): Promise<Student>;
+  findByRegisterNumber(register_number: number): Promise<boolean>;
+
+  findBySsn(ssn: string): Promise<boolean>;
 
   create(data: CreateStudentDto): Promise<Student>;
 
