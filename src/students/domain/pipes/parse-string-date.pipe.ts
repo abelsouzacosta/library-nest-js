@@ -4,7 +4,8 @@ import { format, parseISO } from 'date-fns';
 @Injectable()
 export class ParseStringDatePipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
-    if (metadata.type !== 'body') return value;
+    if (metadata.type !== 'body' || value.date_birth === undefined)
+      return value;
 
     const parsedDateString = parseISO(value.date_birth);
     const formattedBirthDate = format(parsedDateString, 'dd/MM/yyyy');
