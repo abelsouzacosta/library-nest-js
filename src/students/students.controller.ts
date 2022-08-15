@@ -14,13 +14,14 @@ import { StudentsService } from './students.service';
 import { CreateStudentDto } from './application/dto/create-student.dto';
 import { UpdateStudentDto } from './application/dto/update-student.dto';
 import { GetStudentAgePipe } from './domain/pipes/get-student-age.pipe';
+import { ParseStringDatePipe } from './domain/pipes/parse-string-date.pipe';
 
 @Controller('students')
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 
   @Post()
-  @UsePipes(ValidationPipe, GetStudentAgePipe)
+  @UsePipes(ValidationPipe, ParseStringDatePipe, GetStudentAgePipe)
   @HttpCode(HttpStatus.CREATED)
   create(@Body() createStudentDto: CreateStudentDto) {
     return this.studentsService.create(createStudentDto);

@@ -10,8 +10,6 @@ export class GetStudentAgePipe implements PipeTransform {
 
     const age = differenceInYears(new Date(), parsedBirthDate);
 
-    console.log(parsedBirthDate, value.date_birth);
-
     value.age = age;
     value.date_birth = parsedBirthDate;
 
