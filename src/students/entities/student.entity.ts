@@ -17,7 +17,7 @@ export class Student {
   @Prop({ required: true, type: String })
   ssn: string;
 
-  @Prop({ required: true, type: String })
+  @Prop({ required: true, type: Number })
   register_number: number;
 }
 
