@@ -5,17 +5,23 @@ import {
   Body,
   Patch,
   Param,
-  Delete,
+  UsePipes,
+  ValidationPipe,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { CreateStudentDto } from './application/dto/create-student.dto';
 import { UpdateStudentDto } from './application/dto/update-student.dto';
+import { GetStudentAgePipe } from './domain/pipes/get-student-age.pipe';
 
 @Controller('students')
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 
   @Post()
+  @UsePipes(ValidationPipe, GetStudentAgePipe)
+  @HttpCode(HttpStatus.CREATED)
   create(@Body() createStudentDto: CreateStudentDto) {
     return this.studentsService.create(createStudentDto);
   }
@@ -27,16 +33,11 @@ export class StudentsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.studentsService.findOne(+id);
+    return this.studentsService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateStudentDto: UpdateStudentDto) {
-    return this.studentsService.update(+id, updateStudentDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.studentsService.remove(+id);
+    return this.studentsService.update(id, updateStudentDto);
   }
 }

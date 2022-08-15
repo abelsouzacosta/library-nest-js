@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { CreateStudentDto } from './application/dto/create-student.dto';
 import { UpdateStudentDto } from './application/dto/update-student.dto';
+import { StudentsRepository } from './domain/repositories/students.repository';
 
 @Injectable()
 export class StudentsService {
-  create(createStudentDto: CreateStudentDto) {
-    return 'This action adds a new student';
+  constructor(private readonly repository: StudentsRepository) {}
+
+  create(data: CreateStudentDto) {
+    return this.repository.create(data);
   }
 
   findAll() {
-    return `This action returns all students`;
+    return this.repository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} student`;
+  findOne(id: string) {
+    return this.repository.findById(id);
   }
 
-  update(id: number, updateStudentDto: UpdateStudentDto) {
-    return `This action updates a #${id} student`;
+  findByEmail(email: string) {
+    return this.repository.findByEmail(email);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} student`;
+  findBySsn(register_number: number) {
+    return this.repository.findByRegisterNumber(register_number);
+  }
+
+  update(id: string, data: UpdateStudentDto) {
+    return this.repository.update(id, data);
   }
 }

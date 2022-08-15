@@ -6,11 +6,14 @@ export class GetStudentAgePipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
     if (metadata.type !== 'body') return value;
 
-    const birthDay = parse(value.birth_date, 'dd/MM/yyyy', new Date());
+    const parsedBirthDate = parse(value.date_birth, 'dd/MM/yyyy', new Date());
 
-    const age = differenceInYears(birthDay, new Date());
+    const age = differenceInYears(new Date(), parsedBirthDate);
+
+    console.log(parsedBirthDate, value.date_birth);
 
     value.age = age;
+    value.date_birth = parsedBirthDate;
 
     return value;
   }

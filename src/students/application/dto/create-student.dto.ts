@@ -1,4 +1,4 @@
-import { IsEmail, IsISO8601, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateStudentDto {
   @IsString({
@@ -20,7 +20,7 @@ export class CreateStudentDto {
   })
   email: string;
 
-  @IsISO8601({
+  @IsString({
     message: 'date_birth should be a Date',
   })
   @IsNotEmpty({
@@ -36,13 +36,13 @@ export class CreateStudentDto {
   })
   ssn: string;
 
-  @IsString({
-    message: 'register_number should be a string',
+  @IsNumber({
+    allowInfinity: false,
   })
   @IsNotEmpty({
     message: 'register_number should be provided',
   })
-  register_number: string;
+  register_number: number;
 
   age: number;
 }
