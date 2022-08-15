@@ -37,7 +37,7 @@ export class StudentsController {
     return this.studentsService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateStudentDto: UpdateStudentDto) {
     return this.studentsService.update(id, updateStudentDto);
   }
