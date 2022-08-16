@@ -1,6 +1,7 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { UpdateResult } from 'mongodb';
 import { Model } from 'mongoose';
+import { AddBoookToCategoryDto } from 'src/categories/application/dto/add-book-to-category.dto';
 import { CreateCategoryDto } from 'src/categories/application/dto/create-category.dto';
 import { UpdateCategoryDto } from 'src/categories/application/dto/update-category.dto';
 import { Category } from 'src/categories/entities/category.entity';
@@ -13,7 +14,7 @@ export class CategoryRepository implements ICategoryRepository {
   ) {}
 
   async find(): Promise<Category[]> {
-    return this.model.find();
+    return this.model.find().populate('books');
   }
 
   async findById(id: string): Promise<Category> {
@@ -28,6 +29,18 @@ export class CategoryRepository implements ICategoryRepository {
 
   async create(data: CreateCategoryDto): Promise<Category> {
     return this.model.create(data);
+  }
+
+  async addBookToCategory(
+    id: string,
+    data: AddBoookToCategoryDto,
+  ): Promise<UpdateResult> {
+    return this.model.updateOne(
+      { _id: id },
+      {
+        $push: { books: data.books },
+      },
+    );
   }
 
   async update(id: string, data: UpdateCategoryDto): Promise<UpdateResult> {
