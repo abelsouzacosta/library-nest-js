@@ -10,10 +10,12 @@ import {
   ValidationPipe,
   HttpCode,
   HttpStatus,
+  Patch,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './application/dto/create-category.dto';
 import { UpdateCategoryDto } from './application/dto/update-category.dto';
+import { AddBoookToCategoryDto } from './application/dto/add-book-to-category.dto';
 
 @Controller('categories')
 export class CategoriesController {
@@ -46,6 +48,15 @@ export class CategoriesController {
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
     return this.categoriesService.update(id, updateCategoryDto);
+  }
+
+  @Patch('add_books/:id')
+  @UsePipes(ValidationPipe)
+  addBooksToCategory(
+    @Param('id') id: string,
+    @Body() data: AddBoookToCategoryDto,
+  ) {
+    return this.categoriesService.addBooksToCategory(id, data);
   }
 
   @Delete(':id')
