@@ -26,7 +26,7 @@ export class CreateStudentDto {
   @IsNotEmpty({
     message: 'date_birth should be provided',
   })
-  date_birth: Date;
+  date_birth: string;
 
   @IsString({
     message: 'ssn should be a string',
