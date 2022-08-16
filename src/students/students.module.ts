@@ -13,10 +13,20 @@ import { StudentNotFoundMiddleware } from './infra/middlewares/student-not-found
 import { RegisterNumberAlreadyTakenMiddleware } from './infra/middlewares/register-number-already-taken.middleware';
 import { EmailAlreadyTakenMiddleware } from './infra/middlewares/email-already-taken.middleware';
 import { SsnAlreadyTakenMiddleware } from './infra/middlewares/ssn-already-taken.middleware';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Student.name, schema: StudentSchema }]),
+    ConfigModule,
+    MulterModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        dest: configService.get<string>('STUDENTS_UPLOAD_DIRECTORY'),
+      }),
+    }),
   ],
   controllers: [StudentsController],
   providers: [StudentsService, StudentsRepository],
