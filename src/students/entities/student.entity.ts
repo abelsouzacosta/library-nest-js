@@ -11,8 +11,8 @@ export class Student {
   @Prop({ required: true, type: String, unique: true })
   email: string;
 
-  @Prop({ required: true, type: Date })
-  date_birth: Date;
+  @Prop({ required: true, type: String })
+  date_birth: string;
 
   @Prop({ required: true, tyype: Number })
   age: number;
