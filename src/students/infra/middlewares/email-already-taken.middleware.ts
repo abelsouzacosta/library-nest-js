@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
-import { EmailAlreadyTakenException } from 'src/students/domain/exceptions/email-already-taken.exception';
+import { EmailAlreadyTakenException } from 'src/shared/infra/exceptions/email-already-taken.exception';
 import { StudentsRepository } from 'src/students/domain/repositories/students.repository';
 
 @Injectable()
