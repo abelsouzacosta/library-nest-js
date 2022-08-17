@@ -13,8 +13,8 @@ export class HashPasswordPipe implements PipeTransform {
   ): Promise<CreateUserDto> {
     if (metadata.type !== 'body') return value;
 
-    const roundNumber = this.configService.get<number>('PASSWORD_HASH_SALT');
-    const salt = await genSalt(roundNumber);
+    const roundNumber = this.configService.get('PASSWORD_HASH_SALT');
+    const salt = await genSalt(parseInt(roundNumber));
     value.password = await hash(value.password, salt);
 
     return value;
