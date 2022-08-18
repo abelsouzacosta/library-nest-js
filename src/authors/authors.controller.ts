@@ -10,12 +10,15 @@ import {
   ValidationPipe,
   HttpCode,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthorsService } from './authors.service';
 import { CreateAuthorDto } from './application/dto/create-author.dto';
 import { UpdateAuthorDto } from './application/dto/update-author.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('authors')
+@UseGuards(AuthGuard())
 export class AuthorsController {
   constructor(private readonly authorsService: AuthorsService) {}
 

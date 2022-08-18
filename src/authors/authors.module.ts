@@ -10,10 +10,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Author, AuthorSchema } from './entities/author.entity';
 import { AuthorsRepository } from './domain/repositories/authors.repository';
 import { AuthorNotFoundMiddleware } from './infra/middlewares/author-not-found.middleware';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Author.name, schema: AuthorSchema }]),
+    AuthModule,
   ],
   controllers: [AuthorsController],
   providers: [AuthorsService, AuthorsRepository],
