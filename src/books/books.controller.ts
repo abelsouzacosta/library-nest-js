@@ -11,14 +11,17 @@ import {
   HttpStatus,
   Put,
   Patch,
+  UseGuards,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './application/dto/create-book.dto';
 import { UpdateBookDto } from './application/dto/update-book.dto';
 import { AddAuthorsDto } from './application/dto/add-authors.dto';
 import { ParseIsbnPipe } from './domain/pipes/parse-isbn.pipe';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('books')
+@UseGuards(AuthGuard())
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 

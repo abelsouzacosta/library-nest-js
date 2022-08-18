@@ -10,10 +10,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Book, BookSchema } from './entities/book.entity';
 import { BooksRepository } from './domain/repositories/book.repository';
 import { BookNotFoundMiddleware } from './infra/middlewares/book-not-found.middleware';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Book.name, schema: BookSchema }]),
+    AuthModule,
   ],
   controllers: [BooksController],
   providers: [BooksService, BooksRepository],
