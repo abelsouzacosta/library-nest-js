@@ -19,6 +19,7 @@ import { EmailAlreadyTakenMiddleware } from './infra/middlewares/email-already-t
   ],
   controllers: [UsersController],
   providers: [UsersService, UserRepository],
+  exports: [UserRepository],
 })
 export class UsersModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
