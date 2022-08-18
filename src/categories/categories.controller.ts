@@ -11,13 +11,16 @@ import {
   HttpCode,
   HttpStatus,
   Patch,
+  UseGuards,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './application/dto/create-category.dto';
 import { UpdateCategoryDto } from './application/dto/update-category.dto';
 import { AddBoookToCategoryDto } from './application/dto/add-book-to-category.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('categories')
+@UseGuards(AuthGuard())
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
