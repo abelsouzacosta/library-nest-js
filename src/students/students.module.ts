@@ -15,6 +15,7 @@ import { EmailAlreadyTakenMiddleware } from './infra/middlewares/email-already-t
 import { SsnAlreadyTakenMiddleware } from './infra/middlewares/ssn-already-taken.middleware';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MulterModule } from '@nestjs/platform-express';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { MulterModule } from '@nestjs/platform-express';
         dest: configService.get<string>('STUDENTS_UPLOAD_DIRECTORY'),
       }),
     }),
+    AuthModule,
   ],
   controllers: [StudentsController],
   providers: [StudentsService, StudentsRepository],

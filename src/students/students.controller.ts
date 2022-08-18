@@ -11,6 +11,7 @@ import {
   Put,
   UploadedFile,
   UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { CreateStudentDto } from './application/dto/create-student.dto';
@@ -19,8 +20,10 @@ import { GetStudentAgePipe } from './domain/pipes/get-student-age.pipe';
 import { ParseStringDatePipe } from './domain/pipes/parse-string-date.pipe';
 import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('students')
+@UseGuards(AuthGuard())
 export class StudentsController {
   constructor(
     private readonly studentsService: StudentsService,
