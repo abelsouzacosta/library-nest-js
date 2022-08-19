@@ -11,11 +11,12 @@ import { Student, StudentSchema } from './entities/student.entity';
 import { StudentsRepository } from './domain/repositories/students.repository';
 import { StudentNotFoundMiddleware } from './infra/middlewares/student-not-found.middleware';
 import { RegisterNumberAlreadyTakenMiddleware } from './infra/middlewares/register-number-already-taken.middleware';
-import { EmailAlreadyTakenMiddleware } from './infra/middlewares/email-already-taken.middleware';
 import { SsnAlreadyTakenMiddleware } from './infra/middlewares/ssn-already-taken.middleware';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MulterModule } from '@nestjs/platform-express';
 import { AuthModule } from 'src/auth/auth.module';
+import { UsersModule } from 'src/users/users.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -29,6 +30,8 @@ import { AuthModule } from 'src/auth/auth.module';
       }),
     }),
     AuthModule,
+    UsersModule,
+    JwtModule,
   ],
   controllers: [StudentsController],
   providers: [StudentsService, StudentsRepository],
@@ -43,11 +46,7 @@ export class StudentsModule implements NestModule {
       );
 
     consumer
-      .apply(
-        RegisterNumberAlreadyTakenMiddleware,
-        EmailAlreadyTakenMiddleware,
-        SsnAlreadyTakenMiddleware,
-      )
+      .apply(RegisterNumberAlreadyTakenMiddleware, SsnAlreadyTakenMiddleware)
       .forRoutes(
         { path: 'students/', method: RequestMethod.POST },
         { path: 'students/:id', method: RequestMethod.PUT },
