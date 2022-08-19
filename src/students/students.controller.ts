@@ -21,6 +21,7 @@ import { ParseStringDatePipe } from './domain/pipes/parse-string-date.pipe';
 import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '@nestjs/passport';
+import { CheckEmailAlreadyTakenPipe } from './domain/pipes/check-email-already-taken.pipe';
 
 @Controller('students')
 @UseGuards(AuthGuard())
@@ -31,7 +32,12 @@ export class StudentsController {
   ) {}
 
   @Post()
-  @UsePipes(ValidationPipe, ParseStringDatePipe, GetStudentAgePipe)
+  @UsePipes(
+    ValidationPipe,
+    CheckEmailAlreadyTakenPipe,
+    ParseStringDatePipe,
+    GetStudentAgePipe,
+  )
   @HttpCode(HttpStatus.CREATED)
   create(@Body() data: CreateStudentDto) {
     return this.studentsService.create(data);
@@ -50,7 +56,12 @@ export class StudentsController {
   }
 
   @Put(':id')
-  @UsePipes(ValidationPipe, ParseStringDatePipe, GetStudentAgePipe)
+  @UsePipes(
+    ValidationPipe,
+    CheckEmailAlreadyTakenPipe,
+    ParseStringDatePipe,
+    GetStudentAgePipe,
+  )
   @HttpCode(HttpStatus.CREATED)
   update(@Param('id') id: string, @Body() data: UpdateStudentDto) {
     return this.studentsService.update(id, data);
