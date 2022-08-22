@@ -16,6 +16,7 @@ import { AuthorsService } from './authors.service';
 import { CreateAuthorDto } from './application/dto/create-author.dto';
 import { UpdateAuthorDto } from './application/dto/update-author.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { CheckAuthorExistsPipe } from './domain/pipes/check-author-exists.pipe';
 
 @Controller('authors')
 @UseGuards(AuthGuard())
@@ -36,19 +37,21 @@ export class AuthorsController {
   }
 
   @Get(':id')
+  @UsePipes(CheckAuthorExistsPipe)
   @HttpCode(HttpStatus.OK)
   findOne(@Param('id') id: string) {
     return this.authorsService.findOne(id);
   }
 
   @Put(':id')
-  @UsePipes(ValidationPipe)
+  @UsePipes(CheckAuthorExistsPipe, ValidationPipe)
   @HttpCode(HttpStatus.CREATED)
   update(@Param('id') id: string, @Body() data: UpdateAuthorDto) {
     return this.authorsService.update(id, data);
   }
 
   @Delete(':id')
+  @UsePipes(CheckAuthorExistsPipe)
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: string) {
     return this.authorsService.remove(id);
