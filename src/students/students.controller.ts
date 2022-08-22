@@ -23,6 +23,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '@nestjs/passport';
 import { CheckEmailAlreadyTakenPipe } from './domain/pipes/check-email-already-taken.pipe';
 import { CheckRegisterNumberAlreadyTakenPipe } from './domain/pipes/check-register-number-already-taken.pipe';
+import { CheckSsnAlreadyTakenPipe } from './domain/pipes/check-ssn-already-taken.pipe';
 
 @Controller('students')
 @UseGuards(AuthGuard())
@@ -37,6 +38,7 @@ export class StudentsController {
     ValidationPipe,
     CheckEmailAlreadyTakenPipe,
     CheckRegisterNumberAlreadyTakenPipe,
+    CheckSsnAlreadyTakenPipe,
     ParseStringDatePipe,
     GetStudentAgePipe,
   )
@@ -62,6 +64,7 @@ export class StudentsController {
     ValidationPipe,
     CheckEmailAlreadyTakenPipe,
     CheckRegisterNumberAlreadyTakenPipe,
+    CheckSsnAlreadyTakenPipe,
     ParseStringDatePipe,
     GetStudentAgePipe,
   )
