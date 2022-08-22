@@ -13,15 +13,24 @@ export class StudentsRepository implements IStudentRepository {
   ) {}
 
   async create(data: CreateStudentDto): Promise<Student> {
-    return this.model.create(data);
+    return this.model.create({
+      ...data,
+      createdBy: data.user,
+    });
   }
 
   async find(): Promise<Student[]> {
-    return this.model.find();
+    return this.model
+      .find()
+      .populate('createdBy', 'name')
+      .populate('updatedBy', 'name');
   }
 
   async findById(id: string): Promise<Student> {
-    return this.model.findById(id);
+    return this.model
+      .findById(id)
+      .populate('createdBy', 'name')
+      .populate('updatedBy', 'name');
   }
 
   async findByEmail(email: string): Promise<boolean> {
@@ -47,6 +56,14 @@ export class StudentsRepository implements IStudentRepository {
   }
 
   async update(id: string, data: UpdateStudentDto): Promise<UpdateResult> {
-    return this.model.updateOne({ _id: id }, { ...data });
+    return this.model.updateOne(
+      {
+        _id: id,
+      },
+      {
+        ...data,
+        $set: { updatedBy: data.user },
+      },
+    );
   }
 }

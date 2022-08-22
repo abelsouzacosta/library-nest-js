@@ -1,4 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose from 'mongoose';
+import { User } from 'src/users/entities/user.entity';
 
 @Schema({
   timestamps: true,
@@ -22,6 +24,12 @@ export class Student {
 
   @Prop({ required: true, type: Number, unique: true })
   register_number: number;
+
+  @Prop({ required: false, type: mongoose.Types.ObjectId, ref: 'User' })
+  createdBy?: User;
+
+  @Prop({ required: false, type: mongoose.Types.ObjectId, ref: 'User' })
+  updatedBy?: User;
 }
 
 export const StudentSchema = SchemaFactory.createForClass(Student);

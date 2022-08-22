@@ -45,4 +45,6 @@ export class CreateStudentDto {
   register_number: number;
 
   age: number;
+
+  user?: string;
 }

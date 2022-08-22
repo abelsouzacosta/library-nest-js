@@ -1,4 +1,9 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { StudentsController } from './students.controller';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -9,6 +14,7 @@ import { MulterModule } from '@nestjs/platform-express';
 import { AuthModule } from 'src/auth/auth.module';
 import { UsersModule } from 'src/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
+import { AuthenticationMiddleware } from 'src/shared/infra/middleware/authentication.middleware';
 
 @Module({
   imports: [
@@ -28,4 +34,13 @@ import { JwtModule } from '@nestjs/jwt';
   controllers: [StudentsController],
   providers: [StudentsService, StudentsRepository],
 })
-export class StudentsModule {}
+export class StudentsModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthenticationMiddleware)
+      .forRoutes(
+        { path: 'students', method: RequestMethod.POST },
+        { path: 'students/:id', method: RequestMethod.PUT },
+      );
+  }
+}
