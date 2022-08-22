@@ -36,4 +36,6 @@ export class CreateAuthorDto {
   })
   @IsOptional()
   date_of_death?: Date;
+
+  user: string;
 }

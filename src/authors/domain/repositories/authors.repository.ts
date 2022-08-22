@@ -14,20 +14,29 @@ export class AuthorsRepository implements IAuthorRepository {
   ) {}
 
   async find(): Promise<Author[]> {
-    return this.model.find();
+    return this.model
+      .find()
+      .populate('createdBy', 'name')
+      .populate('updatedBy', 'name');
   }
 
   async findById(id: string): Promise<Author> {
-    return this.model.findById(id);
+    return this.model
+      .findById(id)
+      .populate('createdBy', 'name')
+      .populate('updatedBy', 'name');
   }
 
   async create(data: CreateAuthorDto): Promise<Author> {
-    return this.model.create(data);
+    return this.model.create({
+      ...data,
+      createdBy: data.user,
+    });
   }
 
   async update(
     id: string,
-    { name, biography, date_of_birth, date_of_death }: UpdateAuthorDto,
+    { name, biography, date_of_birth, date_of_death, user }: UpdateAuthorDto,
   ): Promise<UpdateWriteOpResult> {
     return this.model.updateOne(
       { _id: id },
@@ -36,6 +45,7 @@ export class AuthorsRepository implements IAuthorRepository {
         biography,
         date_of_birth,
         date_of_death,
+        $set: { updatedBy: user },
       },
     );
   }
