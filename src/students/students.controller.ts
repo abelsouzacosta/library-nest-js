@@ -22,6 +22,7 @@ import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '@nestjs/passport';
 import { CheckEmailAlreadyTakenPipe } from './domain/pipes/check-email-already-taken.pipe';
+import { CheckRegisterNumberAlreadyTakenPipe } from './domain/pipes/check-register-number-already-taken.pipe';
 
 @Controller('students')
 @UseGuards(AuthGuard())
@@ -35,6 +36,7 @@ export class StudentsController {
   @UsePipes(
     ValidationPipe,
     CheckEmailAlreadyTakenPipe,
+    CheckRegisterNumberAlreadyTakenPipe,
     ParseStringDatePipe,
     GetStudentAgePipe,
   )
