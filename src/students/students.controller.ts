@@ -24,6 +24,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { CheckEmailAlreadyTakenPipe } from './domain/pipes/check-email-already-taken.pipe';
 import { CheckRegisterNumberAlreadyTakenPipe } from './domain/pipes/check-register-number-already-taken.pipe';
 import { CheckSsnAlreadyTakenPipe } from './domain/pipes/check-ssn-already-taken.pipe';
+import { CheckStudentExistsPipe } from './domain/pipes/check-student-exists.pipe';
 
 @Controller('students')
 @UseGuards(AuthGuard())
@@ -55,6 +56,7 @@ export class StudentsController {
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
+  @UsePipes(CheckStudentExistsPipe)
   findOne(@Param('id') id: string) {
     return this.studentsService.findOne(id);
   }
@@ -65,6 +67,7 @@ export class StudentsController {
     CheckEmailAlreadyTakenPipe,
     CheckRegisterNumberAlreadyTakenPipe,
     CheckSsnAlreadyTakenPipe,
+    CheckStudentExistsPipe,
     ParseStringDatePipe,
     GetStudentAgePipe,
   )
