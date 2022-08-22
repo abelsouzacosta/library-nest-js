@@ -18,16 +18,16 @@ export class AuthenticationMiddleware implements NestMiddleware {
   ) {}
 
   getEmailFromDecodedToken(decodedToken: IDecodedToken): string {
-    const parsedToken = JSON.parse(JSON.stringify(decodedToken));
+    const { email }: IDecodedToken = JSON.parse(JSON.stringify(decodedToken));
 
-    return parsedToken.email;
+    return email;
   }
 
   decodeToken(token: string): IDecodedToken {
     return this.jwtService.decode(token) as IDecodedToken;
   }
 
-  async ensureUserExistsOrThrowsException(token: string): Promise<void> {
+  async ensureUserExistsOrThrowsException(token: string) {
     const decodedToken = this.decodeToken(token);
 
     const email = this.getEmailFromDecodedToken(decodedToken);
@@ -35,6 +35,14 @@ export class AuthenticationMiddleware implements NestMiddleware {
     const user = await this.repository.findByEmail(email);
 
     if (!user) throw new ForbiddenUserException(email);
+
+    return user;
+  }
+
+  async getIdFromUser(token: string): Promise<string> {
+    const { _id } = await this.ensureUserExistsOrThrowsException(token);
+
+    return _id.toString();
   }
 
   async use(req: Request, res: Response, next: NextFunction) {
@@ -44,7 +52,9 @@ export class AuthenticationMiddleware implements NestMiddleware {
 
     const [, token] = bearerToken;
 
-    await this.ensureUserExistsOrThrowsException(token);
+    const user = await this.getIdFromUser(token);
+
+    req.body.user = user;
 
     next();
   }
