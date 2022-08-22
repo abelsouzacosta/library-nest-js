@@ -18,6 +18,7 @@ import { CreateCategoryDto } from './application/dto/create-category.dto';
 import { UpdateCategoryDto } from './application/dto/update-category.dto';
 import { AddBoookToCategoryDto } from './application/dto/add-book-to-category.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { CheckNameAlreadyTakenPipe } from './domain/pipes/check-name-already-taken.pipe';
 
 @Controller('categories')
 @UseGuards(AuthGuard())
@@ -25,7 +26,7 @@ export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
-  @UsePipes(ValidationPipe)
+  @UsePipes(ValidationPipe, CheckNameAlreadyTakenPipe)
   @HttpCode(HttpStatus.CREATED)
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoriesService.create(createCategoryDto);
@@ -44,7 +45,7 @@ export class CategoriesController {
   }
 
   @Put(':id')
-  @UsePipes(ValidationPipe)
+  @UsePipes(ValidationPipe, CheckNameAlreadyTakenPipe)
   @HttpCode(HttpStatus.CREATED)
   update(
     @Param('id') id: string,
