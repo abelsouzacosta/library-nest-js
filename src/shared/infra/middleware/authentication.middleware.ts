@@ -17,14 +17,14 @@ export class AuthenticationMiddleware implements NestMiddleware {
     private readonly repository: UserRepository,
   ) {}
 
+  decodeToken(token: string): IDecodedToken {
+    return this.jwtService.decode(token) as IDecodedToken;
+  }
+
   getEmailFromDecodedToken(decodedToken: IDecodedToken): string {
     const { email }: IDecodedToken = JSON.parse(JSON.stringify(decodedToken));
 
     return email;
-  }
-
-  decodeToken(token: string): IDecodedToken {
-    return this.jwtService.decode(token) as IDecodedToken;
   }
 
   async ensureUserExistsOrThrowsException(token: string) {
