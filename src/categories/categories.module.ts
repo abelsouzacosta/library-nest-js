@@ -30,6 +30,11 @@ export class CategoriesModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthenticationMiddleware)
-      .forRoutes({ path: 'categories', method: RequestMethod.GET });
+      .forRoutes(
+        { path: 'categories', method: RequestMethod.GET },
+        { path: 'categories', method: RequestMethod.POST },
+        { path: 'categories/:id', method: RequestMethod.PUT },
+        { path: 'categories/add_books/:id', method: RequestMethod.PATCH },
+      );
   }
 }
