@@ -61,6 +61,7 @@ export class StudentsController {
   @UsePipes(
     ValidationPipe,
     CheckEmailAlreadyTakenPipe,
+    CheckRegisterNumberAlreadyTakenPipe,
     ParseStringDatePipe,
     GetStudentAgePipe,
   )
