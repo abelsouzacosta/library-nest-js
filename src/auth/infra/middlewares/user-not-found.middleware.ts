@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
-import { UserNotFoundException } from 'src/auth/application/exceptions/user-not-found.exception';
+import { UserNotFoundException } from 'src/auth/domain/exceptions/user-not-found.exception';
 import { UserRepository } from 'src/users/domain/repositories/user.repository';
 
 @Injectable()
