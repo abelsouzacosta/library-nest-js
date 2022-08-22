@@ -16,7 +16,7 @@ export class UserRepository implements IUserRepository {
     return this.model.create(data);
   }
 
-  async findByEmail(email: string): Promise<User> {
+  async findByEmail(email: string) {
     return this.model.findOne({
       email,
     });
