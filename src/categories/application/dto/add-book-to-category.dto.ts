@@ -7,4 +7,6 @@ export class AddBoookToCategoryDto {
   })
   @ArrayNotEmpty()
   books: mongoose.Types.ObjectId[];
+
+  user: string;
 }

@@ -14,11 +14,25 @@ export class CategoryRepository implements ICategoryRepository {
   ) {}
 
   async find(): Promise<Category[]> {
-    return this.model.find().populate('books');
+    return this.model
+      .find()
+      .populate({
+        path: 'books',
+        populate: { path: 'authors' },
+      })
+      .populate('createdBy', 'name')
+      .populate('updatedBy', 'name');
   }
 
   async findById(id: string): Promise<Category> {
-    return this.model.findById(id);
+    return this.model
+      .findById(id)
+      .populate({
+        path: 'books',
+        populate: { path: 'authors' },
+      })
+      .populate('createdBy', 'name')
+      .populate('updatedBy', 'name');
   }
 
   async findByName(name: string): Promise<Category> {
@@ -28,7 +42,10 @@ export class CategoryRepository implements ICategoryRepository {
   }
 
   async create(data: CreateCategoryDto): Promise<Category> {
-    return this.model.create(data);
+    return this.model.create({
+      ...data,
+      createdBy: data.user,
+    });
   }
 
   async addBookToCategory(
@@ -39,6 +56,7 @@ export class CategoryRepository implements ICategoryRepository {
       { _id: id },
       {
         $push: { books: data.books },
+        $set: { updatedBy: data.user },
       },
     );
   }
@@ -50,6 +68,7 @@ export class CategoryRepository implements ICategoryRepository {
       },
       {
         ...data,
+        $set: { updatedBy: data.user },
       },
     );
   }

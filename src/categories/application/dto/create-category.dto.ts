@@ -8,4 +8,6 @@ export class CreateCategoryDto {
     message: 'name should be provided',
   })
   name: string;
+
+  user: string;
 }
