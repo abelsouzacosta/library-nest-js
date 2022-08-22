@@ -9,4 +9,6 @@ export class AddAuthorsDto {
     message: 'authors should be provided',
   })
   authors: mongoose.Types.ObjectId[];
+
+  user: string;
 }

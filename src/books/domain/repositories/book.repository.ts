@@ -16,7 +16,11 @@ export class BooksRepository implements IBookRepository {
   ) {}
 
   async find(): Promise<Book[]> {
-    return this.model.find().populate('authors');
+    return this.model
+      .find()
+      .populate('authors', 'name')
+      .populate('createdBy', 'name')
+      .populate('updatedBy', 'name');
   }
 
   async findById(id: string): Promise<Book> {
@@ -30,7 +34,10 @@ export class BooksRepository implements IBookRepository {
   }
 
   async create(data: CreateBookDto): Promise<Book> {
-    return this.model.create(data);
+    return this.model.create({
+      ...data,
+      createdBy: data.user,
+    });
   }
 
   async update(id: string, data: UpdateBookDto): Promise<UpdateResult> {
@@ -38,7 +45,10 @@ export class BooksRepository implements IBookRepository {
       {
         _id: id,
       },
-      { ...data },
+      {
+        ...data,
+        $set: { updatedBy: data.user },
+      },
     );
   }
 
@@ -51,6 +61,7 @@ export class BooksRepository implements IBookRepository {
       { _id: id },
       {
         $push: { authors: data.authors },
+        $set: { updatedBy: data.user },
       },
     );
   }

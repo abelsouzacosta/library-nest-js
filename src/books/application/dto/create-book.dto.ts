@@ -41,4 +41,6 @@ export class CreateBookDto {
     message: 'authors should be provided',
   })
   authors: mongoose.Types.ObjectId[];
+
+  user: string;
 }
