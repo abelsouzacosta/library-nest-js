@@ -10,7 +10,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Student, StudentSchema } from './entities/student.entity';
 import { StudentsRepository } from './domain/repositories/students.repository';
 import { StudentNotFoundMiddleware } from './infra/middlewares/student-not-found.middleware';
-import { SsnAlreadyTakenMiddleware } from './infra/middlewares/ssn-already-taken.middleware';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MulterModule } from '@nestjs/platform-express';
 import { AuthModule } from 'src/auth/auth.module';
@@ -41,13 +40,6 @@ export class StudentsModule implements NestModule {
       .apply(StudentNotFoundMiddleware)
       .forRoutes(
         { path: 'students/:id', method: RequestMethod.GET },
-        { path: 'students/:id', method: RequestMethod.PUT },
-      );
-
-    consumer
-      .apply(SsnAlreadyTakenMiddleware)
-      .forRoutes(
-        { path: 'students/', method: RequestMethod.POST },
         { path: 'students/:id', method: RequestMethod.PUT },
       );
   }
