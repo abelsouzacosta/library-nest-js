@@ -1,16 +1,10 @@
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod,
-} from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from 'src/users/users.module';
-import { UserNotFoundMiddleware } from './infra/middlewares/user-not-found.middleware';
 import { JwtStrategy } from './infra/strategy/jwt.strategy';
 
 @Module({
@@ -33,10 +27,4 @@ import { JwtStrategy } from './infra/strategy/jwt.strategy';
   providers: [AuthService, JwtStrategy],
   exports: [PassportModule, JwtStrategy],
 })
-export class AuthModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(UserNotFoundMiddleware)
-      .forRoutes({ path: 'auth', method: RequestMethod.POST });
-  }
-}
+export class AuthModule {}
