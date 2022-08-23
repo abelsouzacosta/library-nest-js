@@ -1,10 +1,10 @@
 import {
+  ArrayMaxSize,
   ArrayNotEmpty,
   IsArray,
   IsNotEmpty,
   IsOptional,
   IsString,
-  MaxLength,
 } from 'class-validator';
 
 export class CreateLoanDto {
@@ -26,7 +26,7 @@ export class CreateLoanDto {
   @ArrayNotEmpty({
     message: 'books array should not be empty',
   })
-  @MaxLength(5, {
+  @ArrayMaxSize(5, {
     message: 'books should have maximum of 5 instances',
   })
   books: string[];
