@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { NextFunction, Request, Response } from 'express';
 import { UserRepository } from 'src/users/domain/repositories/user.repository';
 import { ForbiddenUserException } from '../exceptions/forbidden-user.exception';
+import { MissingBearerTokenException } from '../exceptions/missing-bearer-token.exception';
 
 interface IDecodedToken {
   email: string;
@@ -47,6 +48,8 @@ export class AuthenticationMiddleware implements NestMiddleware {
 
   async use(req: Request, res: Response, next: NextFunction) {
     const authorizationHeader = req.headers.authorization;
+
+    if (!authorizationHeader) throw new MissingBearerTokenException();
 
     const bearerToken = authorizationHeader.split(' ');
 
