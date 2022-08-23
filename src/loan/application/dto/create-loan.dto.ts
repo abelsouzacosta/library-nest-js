@@ -40,6 +40,4 @@ export class CreateLoanDto {
   loan_date: string;
 
   devolution_date: string;
-
-  renewal_date: string;
 }
