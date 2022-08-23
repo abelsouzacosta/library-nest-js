@@ -19,7 +19,10 @@ export class LoanRepository implements ILoanRepository {
   }
 
   async find(): Promise<Loan[]> {
-    return this.model.find();
+    return this.model
+      .find()
+      .populate('student', 'name')
+      .populate('books', 'title');
   }
 
   async findById(id: string): Promise<Loan> {
