@@ -1,13 +1,25 @@
-import { Controller, Get, Post, Body, Param, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Patch,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { LoanService } from './loan.service';
 import { CreateLoanDto } from './application/dto/create-loan.dto';
 import { LoanRenewalDto } from './application/dto/loan-renewal.dto';
+import { SetLoanDatePipe } from './domain/pipes/set-loan-date.pipe';
+import { SetDevolutionDatePipe } from './domain/pipes/set-devolution-date.pipe';
 
 @Controller('loan')
 export class LoanController {
   constructor(private readonly loanService: LoanService) {}
 
   @Post()
+  @UsePipes(SetLoanDatePipe, SetDevolutionDatePipe, ValidationPipe)
   create(@Body() data: CreateLoanDto) {
     return this.loanService.create(data);
   }
