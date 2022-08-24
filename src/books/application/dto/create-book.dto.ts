@@ -1,4 +1,4 @@
-import { IsArray, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 import * as mongoose from 'mongoose';
 
 export class CreateBookDto {
