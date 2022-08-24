@@ -11,8 +11,8 @@ export class Loan {
   @Prop({ required: true, type: mongoose.Types.ObjectId, ref: 'Student' })
   student: Student;
 
-  @Prop({ required: true, type: [mongoose.Types.ObjectId], ref: 'Book' })
-  books: Book[];
+  @Prop({ required: true, type: mongoose.Types.ObjectId, ref: 'Book' })
+  book: Book;
 
   @Prop({ required: true, type: String })
   loan_date: string;
