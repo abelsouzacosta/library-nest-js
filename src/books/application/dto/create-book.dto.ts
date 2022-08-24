@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsInt, IsNotEmpty, IsString } from 'class-validator';
 import * as mongoose from 'mongoose';
 
 export class CreateBookDto {
@@ -41,6 +41,14 @@ export class CreateBookDto {
     message: 'authors should be provided',
   })
   authors: mongoose.Types.ObjectId[];
+
+  @IsInt({
+    message: 'number_of_copies should be a integer',
+  })
+  @IsNotEmpty({
+    message: 'number_of_copies must be provided',
+  })
+  number_of_copies: number;
 
   user: string;
 }
