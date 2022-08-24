@@ -23,6 +23,9 @@ export class Book {
   @Prop({ required: true, type: [mongoose.Types.ObjectId], ref: 'Author' })
   authors: Author[];
 
+  @Prop({ required: true, type: Number })
+  number_of_copies: number;
+
   @Prop({ required: true, type: mongoose.Types.ObjectId, ref: 'User' })
   createdBy: User;
 
