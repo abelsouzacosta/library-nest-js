@@ -25,6 +25,9 @@ export class Student {
   @Prop({ required: true, type: Number, unique: true })
   register_number: number;
 
+  @Prop({ required: false, type: Number, default: 0 })
+  number_of_loans?: number;
+
   @Prop({ required: false, type: mongoose.Types.ObjectId, ref: 'User' })
   createdBy?: User;
 
