@@ -7,8 +7,22 @@ import { LoanRepository } from './domain/repositories/loan.repository';
 export class LoanService {
   constructor(private readonly repository: LoanRepository) {}
 
-  create(data: CreateLoanDto) {
-    return this.repository.create(data);
+  async create({
+    student,
+    books,
+    loan_date,
+    devolution_date,
+    observations,
+  }: CreateLoanDto) {
+    for (const book of books) {
+      await this.repository.create({
+        student,
+        book,
+        loan_date,
+        devolution_date,
+        observations,
+      });
+    }
   }
 
   findAll() {
