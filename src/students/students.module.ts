@@ -33,6 +33,7 @@ import { AuthenticationMiddleware } from 'src/shared/infra/middleware/authentica
   ],
   controllers: [StudentsController],
   providers: [StudentsService, StudentsRepository],
+  exports: [StudentsRepository],
 })
 export class StudentsModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

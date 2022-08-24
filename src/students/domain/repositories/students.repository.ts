@@ -66,4 +66,15 @@ export class StudentsRepository implements IStudentRepository {
       },
     );
   }
+
+  async incrementLoans(id: string) {
+    return this.model.updateOne(
+      {
+        _id: id,
+      },
+      {
+        $inc: { number_of_loans: 1 },
+      },
+    );
+  }
 }

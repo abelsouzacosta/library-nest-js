@@ -14,15 +14,21 @@ export class LoanService {
     devolution_date,
     observations,
   }: CreateLoanDto) {
+    const responses = [];
+
     for (const book of books) {
-      await this.repository.create({
+      const response = await this.repository.create({
         student,
         book,
         loan_date,
         devolution_date,
         observations,
       });
+
+      responses.push(response);
     }
+
+    return responses;
   }
 
   findAll() {

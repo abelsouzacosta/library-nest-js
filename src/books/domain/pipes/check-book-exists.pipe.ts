@@ -1,5 +1,5 @@
 import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
-import { BookNotFoundException } from '../exceptions/book-not-found.exception';
+import { BookNotFoundException } from 'src/shared/infra/exceptions/book-not-found.exception';
 import { BooksRepository } from '../repositories/book.repository';
 
 @Injectable()

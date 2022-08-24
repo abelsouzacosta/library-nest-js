@@ -23,6 +23,7 @@ import { UsersModule } from 'src/users/users.module';
   ],
   controllers: [BooksController],
   providers: [BooksService, BooksRepository],
+  exports: [BooksRepository],
 })
 export class BooksModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
