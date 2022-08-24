@@ -1,5 +1,5 @@
 import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
-import { StudentNotFoundException } from '../exceptions/student-not-found.exception';
+import { StudentNotFoundException } from 'src/shared/infra/exceptions/student-not-found.exception';
 import { StudentsRepository } from '../repositories/students.repository';
 
 @Injectable()
