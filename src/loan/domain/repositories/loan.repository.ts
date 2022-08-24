@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { UpdateResult } from 'mongodb';
 import { Model } from 'mongoose';
-import { CreateLoanDto } from 'src/loan/application/dto/create-loan.dto';
 import { LoanRenewalDto } from 'src/loan/application/dto/loan-renewal.dto';
+import { SetLoanDTO } from 'src/loan/application/dto/set-loan.dto';
 import { Loan } from 'src/loan/entities/loan.entity';
 import { ILoanRepository } from 'src/loan/infra/interfaces/loan-repository.interface';
 
@@ -14,7 +14,7 @@ export class LoanRepository implements ILoanRepository {
     private readonly model: Model<Loan>,
   ) {}
 
-  async create(data: CreateLoanDto): Promise<Loan> {
+  async create(data: SetLoanDTO): Promise<Loan> {
     return this.model.create(data);
   }
 
@@ -22,7 +22,7 @@ export class LoanRepository implements ILoanRepository {
     return this.model
       .find()
       .populate('student', 'name')
-      .populate('books', 'title');
+      .populate('book', 'title');
   }
 
   async findById(id: string): Promise<Loan> {
