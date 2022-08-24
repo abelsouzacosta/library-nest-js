@@ -42,13 +42,5 @@ export class CreateBookDto {
   })
   authors: mongoose.Types.ObjectId[];
 
-  @IsInt({
-    message: 'number_of_copies should be a integer',
-  })
-  @IsNotEmpty({
-    message: 'number_of_copies must be provided',
-  })
-  number_of_copies: number;
-
   user: string;
 }
